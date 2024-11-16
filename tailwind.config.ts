@@ -9,8 +9,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        burgundy: "#6A1B4D",
+        forest: "#2C5F2D",
+        goldenrod: "#CDA34F",
+        navy: "#1C3D5A",
+        ivory: "#FAF3E0",
+        charcoal: "#3E3E3E",
+      },
+      fontFamily: {
+        heading: ["Playfair Display", "serif"],
+        body: ["Source Serif Pro", "serif"],
+        accent: ["Lora", "serif"],
       },
     },
   },
