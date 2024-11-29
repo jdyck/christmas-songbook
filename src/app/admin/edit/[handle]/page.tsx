@@ -14,7 +14,9 @@ export default async function EditSongPage({
   // Fetch song data
   const { data: song, error } = await supabase
     .from("songs")
-    .select("title, handle, abc_data")
+    .select(
+      "title, subtitle, handle, abc_data, composer, lyricist, key, lyrics, abc_music, meter, length, published"
+    )
     .eq("handle", params.handle)
     .single();
 
