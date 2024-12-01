@@ -28,22 +28,15 @@ export default async function Home() {
           >
             🎄 Christmas Songbook 🎶
           </h1>
-          {/* <h1
-            className={`${lora.className} font-bold text-4xl text-burgundy pb-6`}
-          >
-            Christmas Songbook
-          </h1>
-          <h1
-            className={`${sourceSerif.className} font-bold text-4xl text-burgundy pb-6`}
-          >
-            Christmas Songbook
-          </h1> */}
 
           {songs && songs.length > 0 ? (
             <ul className="md:columns-2">
               {songs.map((song) => (
                 <li key={song.handle}>
-                  <Link href={`/song/${song.handle}`} className="p-2 block">
+                  <Link
+                    href={`/song/${song.handle}`}
+                    className="p-6 block hover:bg-gray-100 bg-gray-50 rounded-lg mb-2"
+                  >
                     {song.title}
                   </Link>
                 </li>

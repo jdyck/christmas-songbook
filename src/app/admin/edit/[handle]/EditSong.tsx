@@ -17,7 +17,6 @@ export default function EditSong({
     title: string;
     subtitle: string | null;
     handle: string;
-    abc_data: string;
     composer: string;
     lyricist: string;
     key: string;
@@ -57,7 +56,7 @@ w:${sanitizedLyrics}
         wrap: { minSpacing: 1.5, maxSpacing: 2.7, preferredMeasuresPerLine: 4 },
       });
     }
-  }, [song.abc_data, abcCompiled]);
+  }, [abcCompiled]);
 
   const updateSong = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +70,6 @@ w:${sanitizedLyrics}
           title: song.title,
           subtitle: song.subtitle,
           handle: song.handle,
-          abc_data: song.abc_data,
           composer: song.composer,
           lyricist: song.lyricist,
           key: song.key,
@@ -168,13 +166,7 @@ w:${sanitizedLyrics}
             value={song.meter}
             onChange={(e) => setSong({ ...song, meter: e.target.value })}
           />
-          <textarea
-            className="w-full p-1 mb-4 h-[400px] px-2"
-            placeholder="ABC Data"
-            value={song.abc_data}
-            onChange={(e) => setSong({ ...song, abc_data: e.target.value })}
-            required
-          />
+
           <div className="mb-4">
             <label className="flex items-center">
               <input

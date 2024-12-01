@@ -14,7 +14,6 @@ export default function AddSongPage() {
   const [newSong, setNewSong] = useState({
     title: "",
     handle: "",
-    abc_data: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -36,7 +35,6 @@ export default function AddSongPage() {
       const { error } = await supabase.from("songs").insert({
         title: newSong.title,
         handle: newSong.handle,
-        abc_data: newSong.abc_data,
       });
 
       if (error) throw error;
@@ -76,13 +74,6 @@ export default function AddSongPage() {
           placeholder="Handle"
           value={newSong.handle}
           onChange={(e) => setNewSong({ ...newSong, handle: e.target.value })}
-          required
-        />
-        <textarea
-          className="w-full p-1 mb-4"
-          placeholder="ABC Data"
-          value={newSong.abc_data}
-          onChange={(e) => setNewSong({ ...newSong, abc_data: e.target.value })}
           required
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
