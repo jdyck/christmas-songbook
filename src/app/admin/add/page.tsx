@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from "@/lib/supabaseClient"; // Import the shared client
 
 export default function AddSongPage() {
   const router = useRouter();
@@ -77,11 +72,20 @@ export default function AddSongPage() {
           required
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
           {loading ? "Adding..." : "Add Song"}
         </button>
       </form>
-      <button onClick={() => router.push("/admin")}>Cancel</button>
+      <button
+        onClick={() => router.push("/admin")}
+        className="bg-gray-300 text-black px-4 py-2 rounded mt-4"
+      >
+        Cancel
+      </button>
     </div>
   );
 }

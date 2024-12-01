@@ -1,50 +1,15 @@
-import { createClient } from "@supabase/supabase-js";
-import Link from "next/link";
-import { playfair, lora, sourceSerif } from "@/lib/fonts";
 import PageDesign from "@/components/PageDesign";
+import Header from "@/components/Header";
+import Link from "next/link";
+import SongList from "@/components/SongList";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
-export default async function Home() {
-  const { data: songs, error } = await supabase
-    .from("songs")
-    .select("title, handle")
-    .order("handle", { ascending: true });
-
-  if (error) {
-    console.error("Error fetching songs:", error);
-    return <p>Failed to load songs.</p>;
-  }
-
+export default function Home() {
   return (
     <>
       <PageDesign>
-        <div className="">
-          <h1
-            className={`${playfair.className} font-bold text-4xl text-burgundy pb-6`}
-          >
-            🎄 Christmas Songbook 🎶
-          </h1>
-
-          {songs && songs.length > 0 ? (
-            <ul className="md:columns-2">
-              {songs.map((song) => (
-                <li key={song.handle}>
-                  <Link
-                    href={`/song/${song.handle}`}
-                    className="p-6 block hover:bg-gray-100 bg-gray-50 rounded-lg mb-2"
-                  >
-                    {song.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No songs are available.</p>
-          )}
+        <div>
+          <Header />
+          <SongList />
         </div>
       </PageDesign>
       <Link className="m-auto block text-center mb-12" href="/admin">

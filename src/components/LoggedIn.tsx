@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 import SongInAdmin from "@/components/SongInAdmin";
 import { Song } from "@/types/song";
 import LogoutButton from "@/components/LogoutButton";
+import Header from "./Header";
 
 type LoggedInProps = {
   setUser: React.Dispatch<React.SetStateAction<any>>;
@@ -49,23 +50,13 @@ const LoggedIn: React.FC<LoggedInProps> = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <Link href="/" className="text-lg font-bold">
-          <RiAlignLeft /> Christmas Songbook
-        </Link>
-        <LogoutButton
-          setUser={setUser}
-          setLoadingAction={setLoadingAction}
-          loadingAction={loadingAction}
-        />
-      </div>
-      <div className="mb-4">
-        <Link href="/admin/add">
-          <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-            <RiFileAddLine /> Add Song
-          </button>
-        </Link>
-      </div>
+      <Header />
+
+      <LogoutButton
+        setUser={setUser}
+        setLoadingAction={setLoadingAction}
+        loadingAction={loadingAction}
+      />
       {songs.length === 0 ? (
         <p>No songs available.</p>
       ) : (
@@ -80,6 +71,11 @@ const LoggedIn: React.FC<LoggedInProps> = ({
           />
         ))
       )}
+      <Link href="/admin/add">
+        <button className="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600 flex gap-1 items-center">
+          <RiFileAddLine /> Add Song
+        </button>
+      </Link>
     </div>
   );
 };

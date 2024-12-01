@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import ABCJS from "abcjs";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from "@/lib/supabaseClient";
 
 export default function ABCRenderer({ handle }: { handle: string }) {
   const [abcData, setAbcData] = useState<string | null>(null);
@@ -81,7 +77,7 @@ w:${sanitizedLyrics}
       const staffwidth = viewportWidth > 768 ? 768 : viewportWidth;
 
       ABCJS.renderAbc("abc-container", abcData, {
-        scale: 0.9,
+        scale: 0.8,
         responsive: "resize",
         staffwidth,
         wrap: {

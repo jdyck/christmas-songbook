@@ -4,7 +4,7 @@ export default function PageDesign({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="max-w-screen-md border bg-white p-12 m-auto md:my-4">
+    <div className="max-w-screen-md border bg-white p-12 pt-0 m-auto md:my-4">
       {children}
     </div>
   );
