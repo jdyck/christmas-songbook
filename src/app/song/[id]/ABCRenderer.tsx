@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import ABCJS from "abcjs";
 
@@ -7,11 +6,25 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function ABCRenderer({ handle }: { handle: string }) {
   const [abcData, setAbcData] = useState<string | null>(null);
-  const [viewportWidth, setViewportWidth] = useState<number>(window.innerWidth);
+  const [viewportWidth, setViewportWidth] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch song data
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setViewportWidth(window.innerWidth);
+
+      const handleResize = () => {
+        setViewportWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
+
   useEffect(() => {
     const fetchSong = async () => {
       try {
@@ -28,7 +41,6 @@ export default function ABCRenderer({ handle }: { handle: string }) {
           return;
         }
 
-        // Sanitize and compile the ABC data
         const sanitizedAbcMusic = (song.abc_music || "").replace(
           /\r?\n|\r/g,
           " "
@@ -37,9 +49,9 @@ export default function ABCRenderer({ handle }: { handle: string }) {
 
         const abcCompiled = `
         X:1
-T:${song.title} 
+T:${song.title}
 M:${song.meter || "% "}
-K:${song.key || "C"} 
+K:${song.key || "C"}
 L:${song.length || ""}
 C:${song.composer || ""}
 R:${song.lyricist || ""}
@@ -59,21 +71,8 @@ w:${sanitizedLyrics}
     fetchSong();
   }, [handle]);
 
-  // Handle window resizing for responsive rendering
   useEffect(() => {
-    const handleResize = () => {
-      setViewportWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  // Render the ABC data when available
-  useEffect(() => {
-    if (abcData) {
+    if (typeof window !== "undefined" && abcData) {
       const staffwidth = viewportWidth > 768 ? 768 : viewportWidth;
 
       ABCJS.renderAbc("abc-container", abcData, {
@@ -92,9 +91,5 @@ w:${sanitizedLyrics}
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  return (
-    <>
-      <div id="abc-container"></div>
-    </>
-  );
+  return <div id="abc-container"></div>;
 }

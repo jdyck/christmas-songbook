@@ -38,7 +38,6 @@ export const metadata: Metadata = {
     title: "Christmas Songbook 🎄",
     description: "Your go-to collection for public domain Christmas music.",
   },
-  viewport: "width=device-width, initial-scale=1.0",
   robots: "index, follow",
 };
 
